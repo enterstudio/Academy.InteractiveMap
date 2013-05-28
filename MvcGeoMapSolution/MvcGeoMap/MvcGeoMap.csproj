@@ -40,6 +40,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.Entity" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -107,6 +110,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\adform_base.css" />
+    <Content Include="Content\Json\LTU_adm0.json" />
+    <Content Include="Content\Json\TM_WORLD_BORDERS-0.3.shp" />
+    <None Include="Content\Json\us.json" />
+    <Content Include="Content\data\unemployment.tsv" />
     <None Include="Content\passport_base.cshtml" />
     <Content Include="Content\Images\logo.png" />
     <Content Include="Content\passport_base.css" />

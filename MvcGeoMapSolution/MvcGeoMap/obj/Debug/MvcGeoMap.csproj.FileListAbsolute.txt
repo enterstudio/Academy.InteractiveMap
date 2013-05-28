@@ -61,3 +61,5 @@ D:\docs\online courses\adf academy\gitDir\Academy.InteractiveMap\MvcGeoMapSoluti
 D:\docs\online courses\adf academy\gitDir\Academy.InteractiveMap\MvcGeoMapSolution\MvcGeoMap\obj\Debug\MvcGeoMap.csprojResolveAssemblyReference.cache
 D:\docs\online courses\adf academy\gitDir\Academy.InteractiveMap\MvcGeoMapSolution\MvcGeoMap\obj\Debug\MvcGeoMap.dll
 D:\docs\online courses\adf academy\gitDir\Academy.InteractiveMap\MvcGeoMapSolution\MvcGeoMap\obj\Debug\MvcGeoMap.pdb
+D:\docs\online courses\adf academy\gitDir\Academy.InteractiveMap\MvcGeoMapSolution\MvcGeoMap\bin\Newtonsoft.Json.dll
+D:\docs\online courses\adf academy\gitDir\Academy.InteractiveMap\MvcGeoMapSolution\MvcGeoMap\bin\Newtonsoft.Json.xml

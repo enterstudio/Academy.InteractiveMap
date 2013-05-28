@@ -6,83 +6,71 @@
 
 @for(var i = 1; i <= 3; i++){<p>@i</p>}
 
+
+<style>
+
+.counties {
+  fill: none;
+}
+
+.states {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+}
+
+.q0-9 { fill:rgb(247,251,255); }
+.q1-9 { fill:rgb(222,235,247); }
+.q2-9 { fill:rgb(198,219,239); }
+.q3-9 { fill:rgb(158,202,225); }
+.q4-9 { fill:rgb(107,174,214); }
+.q5-9 { fill:rgb(66,146,198); }
+.q6-9 { fill:rgb(33,113,181); }
+.q7-9 { fill:rgb(8,81,156); }
+.q8-9 { fill:rgb(8,48,107); }
+
+</style>
+
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+
 <script>
-    d3.select("body").transition()
-    .style("background-color", "lightblue");
 
-    d3.selectAll("p").style("color", "blue");
+    var width = 960,
+        height = 500;
 
-    d3.selectAll("p")
-    .data([4, 8, 15, 16, 23, 42])
-    .style("font-size", function (d) { return d + "px"; });
-</script>
+    var rateById = d3.map();
 
+    var quantize = d3.scale.quantize()
+        .domain([0, .15])
+        .range(d3.range(9).map(function (i) { return "q" + i + "-9"; }));
 
-<script type='text/javascript'>
-    var data = [32, 57, 112],
-        dataEnter = data.concat(293),
-        dataExit = data.slice(0, 2),
-        w = 360,
-        h = 180,
-        x = d3.scale.ordinal().domain([57, 32, 112]).rangePoints([0, w], 1),
-        y = d3.scale.ordinal().domain(data).rangePoints([0, h], 2);
-</script>
+    var path = d3.geo.path();
 
-<!--
-<div class="chart" id="chart-22">
-<svg width="360" height="180">
-    <circle class="little" cx="180" cy="45" r="12"></circle>
-    <circle class="little" cx="60" cy="90" r="12"></circle>
-    <circle class="little" cx="300" cy="135" r="12"></circle>
-</svg>
-<button onclick="myFunction()">Run</button>
-</div>
-<script>
-    function myFunction() {
-        d3.selectAll("#chart-22 circle").transition()
-            .style("fill", "blue");
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    queue()
+        .defer(d3.json, "@Url.Content("~/Content/Json/us.json")")
+        .defer(d3.tsv, "@Url.Content("~/Content/data/unemployment.tsv")", function (d) { rateById.set(d.id, +d.rate); })
+        .await(ready);
+
+    function ready(error, us) {
+        svg.append("g")
+            .attr("class", "counties")
+          .selectAll("path")
+            .data(topojson.feature(us, us.objects.counties).features)
+          .enter().append("path")
+            .attr("class", function (d) { return quantize(rateById.get(d.id)); })
+            .attr("d", path);
+
+        svg.append("path")
+            .datum(topojson.mesh(us, us.objects.states, function (a, b) { return a !== b; }))
+            .attr("class", "states")
+            .attr("d", path);
     }
-</script>
--->
 
-<div class='chart' id='chart-2'>
-<pre class='code'>
-var circle = svg.selectAll("circle");
-</pre>
-<button>Run</button>
-</div>
-<script type='text/javascript'>
-          (function () {
-              var svg = d3.select("#chart-2").append("svg")
-                  .attr("width", w)
-                  .attr("height", h);
-
-              svg.selectAll(".little")
-                  .data(data)
-                .enter().append("circle")
-                  .attr("class", "little")
-                  .attr("cx", x)
-                  .attr("cy", y)
-                  .attr("r", 12);
-
-              d3.select("#chart-2 button").on("click", function () {
-                  svg.selectAll(".select").remove();
-
-                  svg.selectAll(".select")
-                      .data(data)
-                    .enter().append("circle")
-                      .attr("class", "select")
-                      .attr("cx", x)
-                      .attr("cy", y)
-                      .attr("r", 60)
-                      .style("fill", "none")
-                      .style("stroke", "red")
-                      .style("stroke-opacity", 1e-6)
-                      .style("stroke-width", 3)
-                    .transition()
-                      .duration(750)
-                      .attr("r", 12)
-                      .style("stroke-opacity", 1);
-              });
-          })();
 </script>
