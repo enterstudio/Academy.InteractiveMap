@@ -6,37 +6,137 @@
 
 @for(var i = 1; i <= 3; i++){<p>@i</p>}
 
-
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
 <style>
 
-.counties {
-  fill: none;
-}
-
-.states {
-  fill: none;
+.admin0 {
+  fill: #ccc;
   stroke: #fff;
   stroke-linejoin: round;
 }
 
-.q0-9 { fill:rgb(247,251,255); }
-.q1-9 { fill:rgb(222,235,247); }
-.q2-9 { fill:rgb(198,219,239); }
-.q3-9 { fill:rgb(158,202,225); }
-.q4-9 { fill:rgb(107,174,214); }
-.q5-9 { fill:rgb(66,146,198); }
-.q6-9 { fill:rgb(33,113,181); }
-.q7-9 { fill:rgb(8,81,156); }
-.q8-9 { fill:rgb(8,48,107); }
+.background {
+  fill: none;
+  pointer-events: all;
+}
+
 
 </style>
 
 
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://d3js.org/queue.v1.min.js"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
+<object id="graph1"></object>
 
 <script>
+
+    var width = 960,
+        height = 1160,
+        centered;
+
+    var path = d3.geo.path();
+
+    d3.select("#graph1")
+        .attr("width", width)
+        .attr("height", height);
+
+
+    var svg = d3.select("#graph1").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    d3.json("/Content/Json/all.json", function (error, all) {
+        svg.selectAll(".admin0")
+            .data(topojson.object(all, all.objects.admin0).geometries)
+            .enter().append("path")
+            .attr("class", function (d) { return "admin0 " + d.id; })
+            .attr("d", path);
+    });
+
+
+
+</script>
+
+<!--
+<script>
+
+    var width = 960,
+        height = 500,
+        centered;
+
+    var path = d3.geo.path();
+
+    d3.select("#graph2")
+        .attr("width", width)
+        .attr("height", height);
+
+
+    var svg = d3.select("#graph2").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    svg.append("rect")
+        .attr("class", "background")
+        .attr("width", width)
+        .attr("height", height)
+        .on("click", click2);
+
+    var gg = svg.append("g")
+        .attr("id", "states");
+
+
+    d3.json("@Url.Content("~/Content/Json/us.json")", function (error, topology) {
+        gg.selectAll("path")
+            .data(topojson.feature(topology, topology.objects.states).features)
+            .enter().append("g")
+            .attr("class", "state")
+            .attr("stateID", function (d) { return d.id; })
+            .on("click", click2)
+            .append("path")
+            .attr("d", path);
+    });
+
+
+    function click2(d) {
+        var x, y, k;
+
+        if (d && centered !== d) {
+            var centroid = path.centroid(d);
+            x = centroid[0];
+            y = centroid[1];
+            k = 4;
+            centered = d;
+        } else {
+            x = width / 2;
+            y = height / 2;
+            k = 1;
+            centered = null;
+        }
+
+        var bbb = gg.selectAll("g")
+                .classed("state active", centered && function (d) { return d === centered; });
+
+        gg.transition()
+            .duration(1000)
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+            .style("stroke-width", 1.5 / k + "px");
+
+
+
+
+
+    }
+
+
+</script>
+--
+    >
+<!--
+<script>
+
+
+
+
 
     var width = 960,
         height = 500;
@@ -74,3 +174,5 @@
     }
 
 </script>
+
+-->

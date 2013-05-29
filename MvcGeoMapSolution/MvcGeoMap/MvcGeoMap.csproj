@@ -110,8 +110,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\adform_base.css" />
-    <Content Include="Content\Json\LTU_adm0.json" />
-    <Content Include="Content\Json\TM_WORLD_BORDERS-0.3.shp" />
+    <Content Include="Content\Json\LTU_adm.json" />
+    <Content Include="Content\Json\readme.json" />
+    <Content Include="Content\Json\all.json" />
     <None Include="Content\Json\us.json" />
     <Content Include="Content\data\unemployment.tsv" />
     <None Include="Content\passport_base.cshtml" />
