@@ -113,6 +113,13 @@
     <Content Include="Content\Json\LTU_adm.json" />
     <Content Include="Content\Json\readme.json" />
     <Content Include="Content\Json\all.json" />
+    <Content Include="Content\Json\data\Africa.json" />
+    <Content Include="Content\Json\data\Asia.json" />
+    <Content Include="Content\Json\data\continent_wl.json" />
+    <Content Include="Content\Json\data\Europe.json" />
+    <Content Include="Content\Json\data\NAmerica.json" />
+    <Content Include="Content\Json\data\Oceania.json" />
+    <Content Include="Content\Json\data\SAmerica.json" />
     <None Include="Content\Json\us.json" />
     <Content Include="Content\data\unemployment.tsv" />
     <None Include="Content\passport_base.cshtml" />
