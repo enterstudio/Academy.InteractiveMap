@@ -1,3 +1,42 @@
-#File extensions to ignore. E.g:
-#ignore pdf files:
-*.pdf
+#File extensions to ignore
+\!_GlobalResources
+
+#Visual Studio files
+*.[Oo]bj
+*.user
+*.aps
+*.pch
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.[Cc]ache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.sdf
+*.opensdf
+*.unsuccessfulbuild
+
+[Bb]in
+[Dd]ebug*/
+[Rr]elease*/
+
+#Tooling
+_ReSharper*/
+*.resharper
+[Tt]est[Rr]esult*
+*.ncrunchsolution
+
+#Project files
+[Bb]uild/
+
+#NuGet
+packages/
+*.ncrunchproject
