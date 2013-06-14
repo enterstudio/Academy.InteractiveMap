@@ -62,7 +62,7 @@ svg
         .style("fill", "orange");
 
         // load and display the USA map
-        d3.json("Content/testData/andriui_11000.geojson", function (data) {
+        d3.json("Content/data/maps.json", function (data) {
             g.selectAll("path")
                 .data(data.features)
                 .enter()
