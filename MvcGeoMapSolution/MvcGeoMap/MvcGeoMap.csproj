@@ -58,8 +58,12 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Abstractions" />
-    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.Abstractions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -106,17 +110,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\adform_base.css" />
-    <Content Include="Content\Json\LTU_adm.json" />
-    <Content Include="Content\Json\readme.json" />
-    <Content Include="Content\Json\all.json" />
-    <Content Include="Content\Json\data\Africa.json" />
-    <Content Include="Content\Json\data\Asia.json" />
-    <Content Include="Content\Json\data\continent_wl.json" />
-    <Content Include="Content\Json\data\Europe.json" />
-    <Content Include="Content\Json\data\NAmerica.json" />
-    <Content Include="Content\Json\data\Oceania.json" />
-    <Content Include="Content\Json\data\SAmerica.json" />
-    <None Include="Content\Json\us.json" />
+    <Content Include="Content\geoShapesJson\LTU_adm.json" />
+    <Content Include="Content\geoShapesJson\readme.json" />
+    <Content Include="Content\geoShapesJson\all.json" />
+    <Content Include="Content\geoShapesJson\data\Africa.json" />
+    <Content Include="Content\geoShapesJson\data\Asia.json" />
+    <Content Include="Content\geoShapesJson\data\continent_wl.json" />
+    <Content Include="Content\geoShapesJson\data\Europe.json" />
+    <Content Include="Content\geoShapesJson\data\NAmerica.json" />
+    <Content Include="Content\geoShapesJson\data\Oceania.json" />
+    <Content Include="Content\geoShapesJson\data\SAmerica.json" />
+    <Content Include="Content\data\continent_level_data.json" />
+    <None Include="Content\geoShapesJson\us.json" />
     <Content Include="Content\data\unemployment.tsv" />
     <None Include="Content\passport_base.cshtml" />
     <Content Include="Content\Images\logo.png" />
@@ -176,9 +181,12 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\MvcGeoMap publish test.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\d3.v3.js" />
     <Content Include="Scripts\d3.v3.min.js" />
+    <Content Include="Scripts\d3tests\constants.js" />
+    <Content Include="Scripts\d3tests\graph01.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

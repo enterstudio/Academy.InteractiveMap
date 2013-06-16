@@ -1,116 +1,42 @@
 ﻿@{
     ViewBag.Title = "D3 Index";
 }
-<h2>Place for D3 example</h2>
+<script src="http://d3js.org/queue.v1.min.js" type="text/javascript"></script>
+<script src="http://d3js.org/topojson.v1.min.js" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/d3tests/constants.js")" type="text/javascript"></script>
+<h2>D3 examples</h2>
 
-@for(var i = 1; i <= 3; i++){<p>@i</p>}
-
-<script src="http://d3js.org/queue.v1.min.js"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
+<!--@for(var i = 1; i <= 3; i++){<p>@i</p>}
+-->
 
 
 <style>
-
 path {
-  fill: #ccc;
+  fill: rgb(217, 217, 217);
   stroke: #fff;
   stroke-linejoin: round;
 }
 .background {
   fill: none;
   pointer-events: all;
-}
 
+}
+.q0-9 { fill:rgb(247,251,255); }
+.q1-9 { fill:rgb(222,235,247); }
+.q2-9 { fill:rgb(198,219,239); }
+.q3-9 { fill:rgb(158,202,225); }
+.q4-9 { fill:rgb(107,174,214); }
+.q5-9 { fill:rgb(66,146,198); }
+.q6-9 { fill:rgb(33,113,181); }
+.q7-9 { fill:rgb(8,81,156); }
+.q8-9 { fill:rgb(8,48,107); }
 
 </style>
 
-<object id="graph1"></object>
-
+<div id="graph01"></div>
+<script src="@Url.Content("~/Scripts/d3tests/graph01.js")" type="text/javascript"></script>
 <script>
 
-    var width = 960,
-        height = 1160,
-        centered;
-
-
-    var projection = d3.geo.equirectangular()
-        .scale(150);
-
-
-    var path = d3.geo.path().projection(projection);
-
-
-
-    d3.select("#graph1")
-        .attr("width", width)
-        .attr("height", height);
-
-    var svg = d3.select("#graph1").append("svg")
-        .attr("width", width)
-        .attr("height", height);
-
-
-    svg.append("rect")
-    .attr("class", "background")
-    .attr("width", width)
-    .attr("height", height)
-    .on("click", click);
-
-    var g = svg.append("g")
-        .attr("id", "continents");
-    var gg = svg.append("g")
-    .attr("id", "countries");
-
-    d3.json("/Content/Json/data/continent_wl.json", function (collection) {
-        g.selectAll('path')
-        .data(collection.features)
-        .enter().append('path')
-        .attr('myID', function (d) { return d.properties.OID })
-        .attr('d', path)
-        .on("click", click);
-
-    });
-
-
-
-
-    function click(d) {
-        var x, y, k;
-
-        if (d && centered !== d) {
-            var centroid = path.centroid(d);
-            x = centroid[0];
-            y = centroid[1];
-            k = 4;
-            centered = d;
-        } else {
-            x = width / 2;
-            y = height / 2;
-            k = 1;
-            centered = null;
-        }
-
-        g.selectAll("path")
-            .classed("active", centered && function (d) { return d === centered; });
-
-        g.transition()
-            .duration(1000)
-            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
-            .style("stroke-width", 1.5 / k + "px")
-            .delay(function (d) {
-
-                d3.json("/Content/Json/data/Europe.json", function (collection) {
-                    g.selectAll('path')
-                    .data(collection.features)
-                    .enter().append('path')
-                    .attr('myID', function (d) { return d.properties.NAME })
-                    .attr('d', path)
-                    .on("click", click);
-
-                })
-            });
-
-    }
 
 
     /*
