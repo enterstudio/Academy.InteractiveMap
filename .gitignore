@@ -24,7 +24,7 @@
 *.opensdf
 *.unsuccessfulbuild
 
-[Bb]in
+#[Bb]in
 [Dd]ebug*/
 [Rr]elease*/
 
