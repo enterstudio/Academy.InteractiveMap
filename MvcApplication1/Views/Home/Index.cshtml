@@ -1,0 +1,73 @@
+﻿<head> 
+    <meta charset='utf-8' /> 
+    <title>Interactive World Map</title> 
+    <script src='http://openlayers.org/dev/OpenLayers.js' type='text/javascript' ></script>
+    <script type='text/javascript'>
+        OpenLayers.ProxyHost = '/cgi-bin/proxy.cgi?url=';
+
+        var map, info;
+        function init() {
+            
+            map = new OpenLayers.Map('map_element', {});
+            
+            var base_map = new OpenLayers.Layer.WMS(
+                'Base Map',
+                'http://vmap0.tiles.osgeo.org/wms/vmap0',
+                { layers: 'basic' },
+                { isBaseLayer: true }
+            );
+           
+            var labels_layer = new OpenLayers.Layer.WMS(
+                'OpenLayers WMS',
+                'http://demo.mapserver.org/cgi-bin/wms',
+                {
+                    layers: 'continents', 
+                    transparent: true
+                }, 
+                { opacity: 0.5 } 
+            );
+
+            
+            map.addLayers([base_map, labels_layer]);
+
+            info = new OpenLayers.Control.WMSGetFeatureInfo({
+                url: 'http://demo.mapserver.org/cgi-bin/wms',
+                title: 'Identify features by clicking',
+                queryVisible: true,
+                eventListeners: {
+                    getfeatureinfo: function (event) {
+                        this.map.addPopup(new OpenLayers.Popup.FramedCloud(
+                            "chicken",
+                            this.map.getLonLatFromPixel(event.xy),
+                            null,
+                            event.text,
+                            null,
+                            true
+                        ));
+                        map.addPopup(popup, true);
+                    }
+                }
+            });
+
+
+            map.addControl(info);
+            info.activate();
+            
+            map.addControl(new OpenLayers.Control.LayerSwitcher({}))
+           
+            if (!map.getCenter()) {
+                map.zoomToMaxExtent();
+            }
+
+            map.center;
+
+        }
+
+
+    </script>
+</head>
+
+<body onload='init();'>
+    <div id='map_element' style='width: 800px; height: 600px;'>
+    </div>
+</body>

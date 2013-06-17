@@ -1,0 +1,1 @@
+http://vijaysambhe.wordpress.com/2012/10/12/openlayers-cross-domain-configure-proxyhost-on-windows/
