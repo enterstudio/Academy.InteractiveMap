@@ -12,16 +12,17 @@ function myRgb(red, green, blue) {
 function createPallete(lowColor, middleColor, highColor, lenght) {
     var pallete = [];
 
-    lengthLow = Math.floor((lenght - 1) / 2);
-    lengthHigh = lenght - 1 - lengthLow;
-    console.log(lengthLow + " " +  lengthHigh);
-    rIncLow = Math.floor((middleColor.red - lowColor.red) / lengthLow);
-    gIncLow = Math.floor((middleColor.green - lowColor.green) / lengthLow);
-    bIncLow = Math.floor((middleColor.blue - lowColor.blue) / lengthLow);
+    var lengthLow = Math.floor((lenght - 1) / 2);
+    var lengthHigh = lenght - 1 - lengthLow;
 
-    rIncHigh = Math.floor((highColor.red - middleColor.red) / lengthHigh);
-    gIncHigh = Math.floor((highColor.green - middleColor.green) / lengthHigh);
-    bIncHigh = Math.floor((highColor.blue - middleColor.blue) / lengthHigh);
+    var rIncLow = Math.floor((middleColor.red - lowColor.red) / lengthLow);
+    var gIncLow = Math.floor((middleColor.green - lowColor.green) / lengthLow);
+    var bIncLow = Math.floor((middleColor.blue - lowColor.blue) / lengthLow);
+
+
+    var rIncHigh = Math.floor((highColor.red - middleColor.red) / lengthHigh);
+    var gIncHigh = Math.floor((highColor.green - middleColor.green) / lengthHigh);
+    var bIncHigh = Math.floor((highColor.blue - middleColor.blue) / lengthHigh);
     console.log(rIncLow);
     console.log(rIncHigh);
 
@@ -70,7 +71,7 @@ function findObjectValue(data, objectName, value) {
         return item[objectName] === value;
     })[0];
 };
-function MergeToSecond(firstObject, secondObject) {
+function cloneToSecond(firstObject, secondObject) {
     for (var prop in firstObject) {
         if (firstObject.hasOwnProperty(prop)) {
             secondObject[prop] = firstObject[prop];

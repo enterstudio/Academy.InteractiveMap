@@ -4,7 +4,7 @@
 <script src="http://d3js.org/queue.v1.min.js" type="text/javascript"></script>
 <script src="http://d3js.org/topojson.v1.min.js" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/d3tests/constants.js")" type="text/javascript"></script>
-<h2>Graph01</h2>
+
 
 <!--@for(var i = 1; i <= 3; i++){<p>@i</p>}
 -->
@@ -32,28 +32,13 @@ path {
 .q8-9 { fill:rgb(8,48,107); }
 
 </style>
-
+<h2>Graph01</h2>
 <div id="graph01"></div>
 <script src="@Url.Content("~/Scripts/d3tests/graph01.js")" type="text/javascript"></script>
-<script>
 
-
-
-    /*
-
-    //veikiantis country map
-    d3.json("/Content/Json/all.json", function (error, all) {
-        svg.append("g")
-            .attr("class", "countries")
-        .selectAll("path")
-            .data(topojson.feature(all, all.objects.admin0).features)
-            .enter().append("path")
-            .attr("d", path);
-
-    });
-
-    */
-</script>
+<h2>Graph02</h2>
+<div id="graph02"></div>
+<script src="@Url.Content("~/Scripts/d3tests/graph02.js")" type="text/javascript"></script>
 
 <!--
 <script>

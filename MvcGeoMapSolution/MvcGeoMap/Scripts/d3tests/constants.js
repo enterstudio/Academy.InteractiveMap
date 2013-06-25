@@ -1,5 +1,5 @@
-﻿var width = 1160,
-    height = 960,
+﻿var width = 1000,
+    height = 600,
     centered;
 var projection = d3.geo.equirectangular()
     .scale(150);
