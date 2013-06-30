@@ -161,6 +161,7 @@
     <None Include="Properties\PublishProfiles\MvcGeoMap publish test.pubxml" />
     <Content Include="Scripts\d3.v3.js" />
     <Content Include="Scripts\d3.v3.min.js" />
+    <Content Include="Scripts\d3tests\colorPallete.js" />
     <Content Include="Scripts\d3tests\constants.js" />
     <Content Include="Scripts\d3tests\graph02.js" />
     <Content Include="Scripts\d3tests\graph01.js" />

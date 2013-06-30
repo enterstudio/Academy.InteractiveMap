@@ -10,10 +10,12 @@ function myRgb(red, green, blue) {
 };
 
 function createPallete(lowColor, middleColor, highColor, lenght) {
+
     var pallete = [];
 
-    var lengthLow = Math.floor((lenght - 1) / 2);
-    var lengthHigh = lenght - 1 - lengthLow;
+    var totalSteps = lenght - 1
+    var lengthLow = Math.floor(totalSteps / 2);
+    var lengthHigh = totalSteps - lengthLow;
 
     var rIncLow = Math.floor((middleColor.red - lowColor.red) / lengthLow);
     var gIncLow = Math.floor((middleColor.green - lowColor.green) / lengthLow);
@@ -23,15 +25,14 @@ function createPallete(lowColor, middleColor, highColor, lenght) {
     var rIncHigh = Math.floor((highColor.red - middleColor.red) / lengthHigh);
     var gIncHigh = Math.floor((highColor.green - middleColor.green) / lengthHigh);
     var bIncHigh = Math.floor((highColor.blue - middleColor.blue) / lengthHigh);
-    console.log(rIncLow);
-    console.log(rIncHigh);
+ //   console.log(rIncLow);
+ //   console.log(rIncHigh);
 
     for (var i = 0; i < lenght; i++) {
         rVal = (i <= lengthLow) ? (middleColor.red + rIncLow * (i - lengthLow)) : (middleColor.red + rIncHigh * (i - lengthLow));
         gVal = (i <= lengthLow) ? (middleColor.green + gIncLow * (i - lengthLow)) : (middleColor.green + gIncHigh * (i - lengthLow));
         bVal = (i <= lengthLow) ? (middleColor.blue + bIncLow * (i - lengthLow)) : (middleColor.blue + bIncHigh * (i - lengthLow));
         
-        console.log(rVal);
         pallete[i] = new myRgb(rVal, gVal, bVal);
     }
     return pallete;
@@ -80,7 +81,9 @@ function cloneToSecond(firstObject, secondObject) {
 }
 
 inputData = d3.json("/Content/data/continent_level_data.json", function (error, data) {
-    if (error) return console.warn(error);
+    if (error)
+        return console.warn(error);
+
     inputData = data;
     lowest = data[0].Impressions;
     highest = lowest;
@@ -93,7 +96,7 @@ inputData = d3.json("/Content/data/continent_level_data.json", function (error, 
     myQuantize = d3.scale.quantize().domain([lowest, highest]).range(d3.range(colorPalleteLength).map(function (i) { return colorPallete[i].rgb(); }));
 
 d3.json("/Content/geoShapesJson/data/continent_wl.json", function (error, world) {
-    currentShapes = g.selectAll('path').data(topojson.feature(world, world.objects.continents).features);
+    var currentShapes = g.selectAll('path').data(topojson.feature(world, world.objects.continents).features);
     currentShapes.enter().append('path')
     .attr('myID', function (d) {  return d.properties.name })
     .style('fill', function (d) { tempObject = findObjectValue(inputData, "Continent", d.properties.name); return (tempObject !== undefined) ? myQuantize(tempObject["Impressions"]) : "rgb(220, 220,220)"; })
