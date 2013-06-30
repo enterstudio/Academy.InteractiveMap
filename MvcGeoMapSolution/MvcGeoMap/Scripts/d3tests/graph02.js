@@ -8,31 +8,37 @@ function findObjectValue(data, objectName, value) {
 };
 
 
-var currentLevelData;
-var currentLevelShapes;
-
-var defaultMetric = "Impressions";
-var currentSelectedMetric = defaultMetric;
-
-var lowest = 0;
-var highest = 0;
-var tempValue;
 
 ///////////////////////////////////////
 
-var metricSelector = d3.select("#adformMetricSelector");
-for (var i = 0; i < adformMetricNames.length; i++) {
-    metricSelector.select('select')
-        .append('option')
-        .text(adformMetricNames[i].name);
+var metricSelector =
+    d3.select("#adformMetricSelector")
+    .append('select')
+    .on('change', getNewSelectedMetric)
+    .selectAll("option").data(adformMetricNames)
+    .enter().append("option")
+    .attr("value", function (d, i) { return i })
+    .text(function (d) { return d.name; });
 
+
+var currentSelectedMetric = adformMetricNames[0];
+
+function getNewSelectedMetric() {
+    currentSelectedMetric = (this.options[this.selectedIndex].__data__);
 }
-
 
 
 
 //////////////////////////////////////////////////////////////
 // load stats and shape files.
+
+
+var currentLevelData;
+var currentLevelShapes;
+
+var lowest = 0;
+var highest = 0;
+var tempValue;
 $.ajax({
     async: false,
     dataType: "json",
@@ -124,9 +130,7 @@ function mouseout(data) {
         .duration(1000)
         .style("opacity", 0);
 }
-var currentRegionStats
 function mousemove(data) {
-    currentRegionStats = findObjectValue(currentLevelData, "Continent", data.properties.name);
 
     dataTooltip
         .style("left", (d3.event.pageX - 155) + "px")
@@ -135,14 +139,23 @@ function mousemove(data) {
     dataTooltip.append('h1').text(data.properties.name);
     dataTooltip.append('hr');
 
-    for (var i = 0; i < adformMetricNames.length; i++) {
+    var currentRegionStats = findObjectValue(currentLevelData, "Continent", data.properties.name);
+    if (currentRegionStats !== undefined) {
+        for (var i = 0; i < adformMetricNames.length; i++) {
+            dataTooltip
+                .append('p')
+                .text(adformMetricNames[i].name
+                + ": "
+                + d3.format(adformMetricNames[i].textFormat)
+                (currentRegionStats[adformMetricNames[i].name])
+                );
+        }
+    } else {
         dataTooltip
-            .append('p')
-            .text(adformMetricNames[i].name
-            + ": "
-            + d3.format(adformMetricNames[i].textFormat)
-            (currentRegionStats[adformMetricNames[i].name])
-            );
+               .append('p')
+               .text('No data for selected region');
     }
+
+
 }
 
