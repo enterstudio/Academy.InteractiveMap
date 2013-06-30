@@ -1,22 +1,5 @@
-﻿var myLowColor = new myRgb(220, 180, 180);
-var myMiddleColor = new myRgb(240, 100, 100);
-var myHighColor = new myRgb(255, 0, 0);
-var colorPalleteLength = 6;
-var colorPallete = createPallete(myLowColor, myMiddleColor, myHighColor, colorPalleteLength);
+﻿var colorPallete = createPallete(myLowColor, myMiddleColor, myHighColor, colorPalleteLength);
 
-var metricNames = ["Impressions", "Unique Impressions", "Clicks", "Unique Clicks", "CTR (%)", "Unique CTR (%)", "Leads", "COV (%)", "Sales"];
-
-var adformMetricNames = [
-    {name : "Impressions", textFormat : ",.0f"},
-    { name: "Unique Impressions", textFormat: ",.0f" },
-    { name: "Clicks", textFormat: ",.0f" },
-    { name: "Unique Clicks", textFormat: ",.0f" },
-    { name: "CTR (%)", textFormat: ".2%" },
-    { name: "Unique CTR (%)", textFormat: ".2%" },
-    { name: "Leads", textFormat: ",.0f" },
-    { name: "COV (%)", textFormat: ".2%" },
-    { name: "Sales", textFormat: ",.0f" }
-];
 //////////////////////////////////////////////////////////////
 function findObjectValue(data, objectName, value) {
     return $.grep(data, function (item) {
@@ -28,13 +11,28 @@ function findObjectValue(data, objectName, value) {
 var currentLevelData;
 var currentLevelShapes;
 
+var defaultMetric = "Impressions";
+var currentSelectedMetric = defaultMetric;
+
 var lowest = 0;
 var highest = 0;
 var tempValue;
 
+///////////////////////////////////////
+
+var metricSelector = d3.select("#adformMetricSelector");
+for (var i = 0; i < adformMetricNames.length; i++) {
+    metricSelector.select('select')
+        .append('option')
+        .text(adformMetricNames[i].name);
+
+}
 
 
 
+
+//////////////////////////////////////////////////////////////
+// load stats and shape files.
 $.ajax({
     async: false,
     dataType: "json",
@@ -52,8 +50,10 @@ $.ajax({
     }
 });
 
-if (currentLevelData.length < 1)
+if (currentLevelData.length < 1) {
     console.warn("Current data array is empty!")
+}
+
 
 lowest = currentLevelData[0].Impressions;
 highest = lowest;
