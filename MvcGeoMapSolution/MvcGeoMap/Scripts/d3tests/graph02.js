@@ -14,6 +14,7 @@ function findObjectValue(data, objectName, value) {
 var metricSelector =
     d3.select("#adformMetricSelector")
     .append('select')
+    .attr("class", "hid")
     .on('change', getNewSelectedMetric)
     .selectAll("option").data(adformMetricNames)
     .enter().append("option")
@@ -23,9 +24,7 @@ var metricSelector =
 
 var currentSelectedMetric = adformMetricNames[0];
 
-function getNewSelectedMetric() {
-    currentSelectedMetric = (this.options[this.selectedIndex].__data__);
-}
+
 
 
 
@@ -61,11 +60,11 @@ if (currentLevelData.length < 1) {
 }
 
 
-lowest = currentLevelData[0].Impressions;
+lowest = currentLevelData[0][currentSelectedMetric.name];
 highest = lowest;
 
 for (var i = 0; i < currentLevelData.length; i++) {
-    tempValue = currentLevelData[i].Impressions;
+    tempValue = currentLevelData[i][currentSelectedMetric.name];
     if (tempValue < lowest) lowest = tempValue;
     if (tempValue > highest) highest = tempValue;
 }
@@ -104,16 +103,7 @@ dataTooltip.select("div")
 myCurrentShapes.enter()
     .append('path')
     .attr('myID', function (d) { return d.properties.name })
-    .style('fill', function (d) {
-        var fillColor;
-        var tempObject = findObjectValue(currentLevelData, "Continent", d.properties.name);
-        if (tempObject !== undefined) {
-            fillColor = colorChooser(tempObject["Impressions"]);
-        } else {
-            fillColor = "rgb(220, 220,220)";
-        }
-        return fillColor;
-    })
+    .style('fill', function (d) { return colorByMetric(d, currentSelectedMetric, currentLevelData); })
     .attr('d', path)
     .on("mouseover", function (d) { mouseover(d); })
     .on("mousemove", function (d) { mousemove(d); })
@@ -158,4 +148,32 @@ function mousemove(data) {
 
 
 }
+var asd
+function colorByMetric(d, currentSelectedMetric, currentLevelData) {
+    asd = d;
+    var fillColor;
+    var tempObject = findObjectValue(currentLevelData, "Continent", d.properties.name);
+    if (tempObject !== undefined) {
+        fillColor = colorChooser(tempObject[currentSelectedMetric.name]);
+    } else {
+        fillColor = "rgb(220, 220,220)";
+    }
+    return fillColor;
+}
+function getNewSelectedMetric() {
+    currentSelectedMetric = (this.options[this.selectedIndex].__data__);
 
+    lowest = currentLevelData[0][currentSelectedMetric.name];
+    highest = lowest;
+
+    for (var i = 0; i < currentLevelData.length; i++) {
+        tempValue = currentLevelData[i][currentSelectedMetric.name];
+        if (tempValue < lowest) lowest = tempValue;
+        if (tempValue > highest) highest = tempValue;
+    }
+
+    colorChooser.domain([lowest, highest]);
+
+    myCurrentShapes
+    .style('fill', function (d) { return colorByMetric(d, currentSelectedMetric, currentLevelData); })
+}
