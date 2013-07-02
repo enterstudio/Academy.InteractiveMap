@@ -6,9 +6,6 @@ function findObjectValue(data, objectName, value) {
         return item[objectName] === value;
     })[0];
 };
-
-
-
 ///////////////////////////////////////
 
 var metricSelector =
@@ -21,10 +18,7 @@ var metricSelector =
     .attr("value", function (d, i) { return i })
     .text(function (d) { return d.name; });
 
-
 var currentSelectedMetric = adformMetricNames[0];
-
-
 
 
 
