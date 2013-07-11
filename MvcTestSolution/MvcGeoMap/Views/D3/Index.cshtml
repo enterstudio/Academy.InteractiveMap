@@ -1,0 +1,182 @@
+﻿@{
+    ViewBag.Title = "D3 Index";
+}
+<script src="http://d3js.org/queue.v1.min.js" type="text/javascript"></script>
+<script src="http://d3js.org/topojson.v1.min.js" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/d3tests/constants.js")" type="text/javascript"></script>
+
+
+<!--@for(var i = 1; i <= 3; i++){<p>@i</p>}
+-->
+
+
+<style>
+path {
+  fill: rgb(217, 217, 217);
+  stroke: #fff;
+  stroke-linejoin: round;
+}
+.background {
+  fill: none;
+  pointer-events: all;
+
+}
+.q0-9 { fill:rgb(247,251,255); }
+.q1-9 { fill:rgb(222,235,247); }
+.q2-9 { fill:rgb(198,219,239); }
+.q3-9 { fill:rgb(158,202,225); }
+.q4-9 { fill:rgb(107,174,214); }
+.q5-9 { fill:rgb(66,146,198); }
+.q6-9 { fill:rgb(33,113,181); }
+.q7-9 { fill:rgb(8,81,156); }
+.q8-9 { fill:rgb(8,48,107); }
+
+</style>
+<h2>Graph01</h2>
+<div id="graph01"></div>
+<script src="@Url.Content("~/Scripts/d3tests/graph01.js")" type="text/javascript"></script>
+
+<h2>Graph02</h2>
+<div id="graph02"></div>
+<script src="@Url.Content("~/Scripts/d3tests/graph02.js")" type="text/javascript"></script>
+
+<!--
+<script>
+
+
+        d3.json("/Content/Json/all.json", function (error, all) {
+        svg.append("g")
+            .attr("class", "countries")
+        .selectAll("path")
+            .data(topojson.feature(all, all.objects.admin0))
+            .enter().append("path")
+            .attr("d", path)
+
+      .data(topojson.feature(us, us.objects.counties).features)
+    .enter().append("path")
+      .attr("d", path)
+      .style("fill", function(d) { return fill(path.area(d)); });
+
+
+        svg.append("path")
+            .datum(topojson.feature(all, all.objects.admin0))
+            .attr("d", path);
+
+
+
+    var width = 960,
+        height = 500,
+        centered;
+
+    var path = d3.geo.path();
+
+    d3.select("#graph2")
+        .attr("width", width)
+        .attr("height", height);
+
+
+    var svg = d3.select("#graph2").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    svg.append("rect")
+        .attr("class", "background")
+        .attr("width", width)
+        .attr("height", height)
+        .on("click", click2);
+
+    var gg = svg.append("g")
+        .attr("id", "states");
+
+
+    d3.json("@Url.Content("~/Content/Json/us.json")", function (error, topology) {
+        gg.selectAll("path")
+            .data(topojson.feature(topology, topology.objects.states).features)
+            .enter().append("g")
+            .attr("class", "state")
+            .attr("stateID", function (d) { return d.id; })
+            .on("click", click2)
+            .append("path")
+            .attr("d", path);
+    });
+
+
+    function click2(d) {
+        var x, y, k;
+
+        if (d && centered !== d) {
+            var centroid = path.centroid(d);
+            x = centroid[0];
+            y = centroid[1];
+            k = 4;
+            centered = d;
+        } else {
+            x = width / 2;
+            y = height / 2;
+            k = 1;
+            centered = null;
+        }
+
+        var bbb = gg.selectAll("g")
+                .classed("state active", centered && function (d) { return d === centered; });
+
+        gg.transition()
+            .duration(1000)
+            .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+            .style("stroke-width", 1.5 / k + "px");
+
+
+
+
+
+    }
+
+
+</script>
+--
+    >
+<!--
+<script>
+
+
+
+
+
+    var width = 960,
+        height = 500;
+
+    var rateById = d3.map();
+
+    var quantize = d3.scale.quantize()
+        .domain([0, .15])
+        .range(d3.range(9).map(function (i) { return "q" + i + "-9"; }));
+
+    var path = d3.geo.path();
+
+    var svg = d3.select("body").append("svg")
+        .attr("width", width)
+        .attr("height", height);
+
+    queue()
+        .defer(d3.json, "@Url.Content("~/Content/Json/us.json")")
+        .defer(d3.tsv, "@Url.Content("~/Content/data/unemployment.tsv")", function (d) { rateById.set(d.id, +d.rate); })
+        .await(ready);
+
+    function ready(error, us) {
+        svg.append("g")
+            .attr("class", "counties")
+          .selectAll("path")
+            .data(topojson.feature(us, us.objects.counties).features)
+          .enter().append("path")
+            .attr("class", function (d) { return quantize(rateById.get(d.id)); })
+            .attr("d", path);
+
+        svg.append("path")
+            .datum(topojson.mesh(us, us.objects.states, function (a, b) { return a !== b; }))
+            .attr("class", "states")
+            .attr("d", path);
+    }
+
+</script>
+
+-->
