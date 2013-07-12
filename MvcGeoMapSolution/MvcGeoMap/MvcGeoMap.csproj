@@ -166,7 +166,6 @@
     <Content Include="Scripts\d3tests\graph02.js" />
     <Content Include="Scripts\d3tests\graph01.js" />
     <None Include="Scripts\jquery-2.0.2.intellisense.js" />
-    <Content Include="Scripts\jquery-2.0.2.js" />
     <Content Include="Scripts\jquery-2.0.2.min.js" />
     <Content Include="Scripts\jquery-2.0.2.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

@@ -1,4 +1,5 @@
-﻿var colorPallete = createPallete(myLowColor, myMiddleColor, myHighColor, colorPalleteLength);
+﻿/// /// <reference path="jquery-2.0.2.intellisense.js"/>
+var colorPallete = createPallete(myLowColor, myMiddleColor, myHighColor, colorPalleteLength);
 
 //////////////////////////////////////////////////////////////
 function findObjectValue(data, objectName, value) {
@@ -64,7 +65,7 @@ for (var i = 0; i < currentLevelData.length; i++) {
 }
 
 var colorChooser;
-colorChooser = d3.scale.quantize().domain([lowest, highest]).range(d3.range(colorPalleteLength).map(function (i) { return colorPallete[i].rgb(); }));
+colorChooser = d3.scale.quantize().domain([lowest, highest]).range(d3.range(colorPalleteLength).map(function (i) { return colorPallete[i].toString(); }));
 
 
 var svg = d3.select("#graph02")

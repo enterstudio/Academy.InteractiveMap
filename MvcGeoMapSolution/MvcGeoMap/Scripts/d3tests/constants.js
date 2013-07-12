@@ -17,7 +17,7 @@ var adformMetricNames = [
     { name: "Sales", textFormat: ",.0f" }
 ];
 
-var myLowColor = new myRgb(220, 180, 180);
-var myMiddleColor = new myRgb(240, 100, 100);
-var myHighColor = new myRgb(255, 0, 0);
+var myLowColor = new RgbColor(220, 180, 180);
+var myMiddleColor = new RgbColor(240, 100, 100);
+var myHighColor = new RgbColor(255, 0, 0);
 var colorPalleteLength = 6;
