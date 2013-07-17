@@ -1,8 +1,10 @@
 ﻿var width = 1000,
     height = 600,
     centered;
+
 var projection = d3.geo.equirectangular()
     .scale(150);
+
 var path = d3.geo.path().projection(projection);
 
 var adformMetricNames = [
@@ -20,4 +22,5 @@ var adformMetricNames = [
 var myLowColor = new RgbColor(220, 180, 180);
 var myMiddleColor = new RgbColor(240, 100, 100);
 var myHighColor = new RgbColor(255, 0, 0);
+
 var colorPalleteLength = 6;

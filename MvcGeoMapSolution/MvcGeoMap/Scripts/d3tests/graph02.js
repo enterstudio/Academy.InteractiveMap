@@ -1,31 +1,8 @@
 ﻿/// /// <reference path="jquery-2.0.2.intellisense.js"/>
-var colorPallete = createPallete(myLowColor, myMiddleColor, myHighColor, colorPalleteLength);
-
-//////////////////////////////////////////////////////////////
-function findObjectValue(data, objectName, value) {
-    return $.grep(data, function (item) {
-        return item[objectName] === value;
-    })[0];
-};
-///////////////////////////////////////
-
-var metricSelector =
-    d3.select("#adformMetricSelector")
-    .append('select')
-    .attr("class", "hid")
-    .on('change', getNewSelectedMetric)
-    .selectAll("option").data(adformMetricNames)
-    .enter().append("option")
-    .attr("value", function (d, i) { return i })
-    .text(function (d) { return d.name; });
 
 var currentSelectedMetric = adformMetricNames[0];
 
-
-
-//////////////////////////////////////////////////////////////
 // load stats and shape files.
-
 
 var currentLevelData;
 var currentLevelShapes;
@@ -64,20 +41,30 @@ for (var i = 0; i < currentLevelData.length; i++) {
     if (tempValue > highest) highest = tempValue;
 }
 
+var colorPallete = createPallete(myLowColor, myMiddleColor, myHighColor, colorPalleteLength);
+
 var colorChooser;
 colorChooser = d3.scale.quantize().domain([lowest, highest]).range(d3.range(colorPalleteLength).map(function (i) { return colorPallete[i].toString(); }));
 
+
+var metricSelector = d3.select("#adformMetricSelector")
+    .append('select')
+    .attr("class", "hid")
+    .on('change', getNewSelectedMetric)
+    .selectAll("option").data(adformMetricNames)
+    .enter().append("option")
+    .attr("value", function (d, i) { return i })
+    .text(function (d) { return d.name; });
 
 var svg = d3.select("#graph02")
     .append("svg")
     .attr("width", width)
     .attr("height", height);
 
-
-svg.append("rect")
-.attr("class", "background")
-.attr("width", width)
-.attr("height", height);
+var rect = svg.append("rect")
+    .attr("class", "background")
+    .attr("width", width)
+    .attr("height", height);
 
 var currentGroup = svg
     .append("g")
@@ -95,22 +82,23 @@ dataTooltip.select("div")
     .append('p')
     .text("asd");
 
+
 myCurrentShapes.enter()
     .append('path')
     .attr('myID', function (d) { return d.properties.name })
     .style('fill', function (d) { return colorByMetric(d, currentSelectedMetric, currentLevelData); })
     .attr('d', path)
-    .on("mouseover", function (d) { mouseover(d); })
+    .on("mouseover", function () { mouseover(); })
     .on("mousemove", function (d) { mousemove(d); })
-    .on("mouseout", function (d) { mouseout(d); });
+    .on("mouseout", function () { mouseout(); });
 
-function mouseover(data) {
+function mouseover() {
     dataTooltip.transition()
         .duration(1000)
         .style("opacity", 0.9);
 }
 
-function mouseout(data) {
+function mouseout() {
     dataTooltip.transition()
         .duration(1000)
         .style("opacity", 0);
@@ -125,6 +113,7 @@ function mousemove(data) {
     dataTooltip.append('hr');
 
     var currentRegionStats = findObjectValue(currentLevelData, "Continent", data.properties.name);
+
     if (currentRegionStats !== undefined) {
         for (var i = 0; i < adformMetricNames.length; i++) {
             dataTooltip
@@ -140,14 +129,19 @@ function mousemove(data) {
                .append('p')
                .text('No data for selected region');
     }
-
-
 }
-var asd
+
+function findObjectValue(data, objectName, value) {
+    return $.grep(data, function (item) {
+        return item[objectName] === value;
+    })[0];
+};
+
 function colorByMetric(d, currentSelectedMetric, currentLevelData) {
-    asd = d;
+
     var fillColor;
     var tempObject = findObjectValue(currentLevelData, "Continent", d.properties.name);
+
     if (tempObject !== undefined) {
         fillColor = colorChooser(tempObject[currentSelectedMetric.name]);
     } else {
@@ -155,7 +149,9 @@ function colorByMetric(d, currentSelectedMetric, currentLevelData) {
     }
     return fillColor;
 }
+
 function getNewSelectedMetric() {
+
     currentSelectedMetric = (this.options[this.selectedIndex].__data__);
 
     lowest = currentLevelData[0][currentSelectedMetric.name];

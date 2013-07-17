@@ -10,11 +10,13 @@ RgbColor.prototype.toString = function() {
 function createPallete(lowColor, middleColor, highColor, lenght) {
 
     var pallete = new Array(lenght);
-    var breakpoint = 0.5;
-    var totalSteps = lenght - 1;
-    var fraction;
     var diffLow = new RgbColor();
     var diffHigh = new RgbColor();
+
+    var totalSteps = lenght - 1;
+    var breakpoint = 0.5;
+
+    var fraction;
     var tempColor;
 
     diffLow.red = (middleColor.red - lowColor.red);
@@ -26,8 +28,11 @@ function createPallete(lowColor, middleColor, highColor, lenght) {
     diffHigh.blue = (highColor.blue - middleColor.blue);
 
     for (var i = 0; i < lenght; i++) {
-        tempColor = new RgbColor()
+
+        tempColor = new RgbColor();
+
         if (i / totalSteps <= breakpoint) {
+
             fraction = i / totalSteps * 2;
 
             tempColor.red = lowColor.red + Math.round( diffLow.red * fraction);
@@ -35,6 +40,7 @@ function createPallete(lowColor, middleColor, highColor, lenght) {
             tempColor.blue = lowColor.blue + Math.round(diffLow.blue * fraction);
 
         } else {
+
             fraction = (i / totalSteps - breakpoint) * 2;
 
             tempColor.red = middleColor.red + Math.round(diffHigh.red * fraction);
@@ -44,5 +50,6 @@ function createPallete(lowColor, middleColor, highColor, lenght) {
 
         pallete[i]=tempColor;
     }
+
     return pallete;
 };
