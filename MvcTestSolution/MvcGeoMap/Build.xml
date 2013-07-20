@@ -1,0 +1,25 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Target Name="Clean">
+    <ItemGroup>
+      <BinFiles Include="bin\*.*" />
+    </ItemGroup>
+    <Delete Files="@(BinFiles)" />
+  </Target>
+
+  <Target Name="Compile" DependsOnTargets="Clean">
+    <MSBuild Projects="MvcGeoMap.csproj" />
+  </Target>
+
+  <Target Name="Publish">
+    <RemoveDir Directories="Output" ContinueOnError="true" />
+    <ItemGroup>
+      <Pages Include="**\*.aspx" />
+      <Binaries Include="bin\*.dll" />
+    </ItemGroup>
+    <Copy SourceFiles ="@(Pages)" DestinationFolder="Output\%(RecursiveDir)" />
+    <Copy SourceFiles ="@(Binaries)" DestinationFolder="Output\bin" />
+    <Copy SourceFiles ="Web.config" DestinationFolder="Output" />
+  </Target>
+
+</Project>
