@@ -1,17 +1,41 @@
-﻿function RgbColor(red, green, blue) {
+﻿window.utils = window.utils || {};
+
+window.utils.RgbColor = function (red, green, blue) {
     this.red = red;
     this.green = green;
     this.blue = blue;
 };
-RgbColor.prototype.toString = function() {
+window.utils.RgbColor.prototype.toString = function () {
     var result = "rgb(" + this.red + "," + this.green + "," + this.blue + ")";
     return result;
 };
-function createPallete(lowColor, middleColor, highColor, lenght) {
 
+window.utils.RgbColor.prototype.setFromString = function (inputRgbString) {
+    var rgbValues = new Array;
+    function filterRgbValues(element, index, array) {
+        return (element >= 0 && element <= 255);
+    };
+
+    rgbValues = inputRgbString.match(/-?[0-9]{1,}/g);
+    rgbValues = rgbValues.filter(filterRgbValues);
+
+    if (rgbValues.length !== 3) {
+        throw "Invalid Rgb input string provided."
+    } else {
+        this.red = rgbValues[0];
+        this.green = rgbValues[1];
+        this.blue = rgbValues[2];
+    };
+};
+
+
+window.utils.createPallete = function (lowColor, middleColor, highColor, lenght) {
+    //optional parameter
+    var middleColor = middleColor || new window.utils.RgbColor(Math.round(0.5 * (highColor.red + lowColor.red)), Math.round(0.5 * (highColor.green + lowColor.green)), Math.round(0.5 * (highColor.blue + lowColor.blue)));
+
+    var diffLow = new window.utils.RgbColor();
+    var diffHigh = new window.utils.RgbColor();
     var pallete = new Array(lenght);
-    var diffLow = new RgbColor();
-    var diffHigh = new RgbColor();
 
     var totalSteps = lenght - 1;
     var breakpoint = 0.5;
@@ -29,7 +53,7 @@ function createPallete(lowColor, middleColor, highColor, lenght) {
 
     for (var i = 0; i < lenght; i++) {
 
-        tempColor = new RgbColor();
+        tempColor = new window.utils.RgbColor();
 
         if (i / totalSteps <= breakpoint) {
 

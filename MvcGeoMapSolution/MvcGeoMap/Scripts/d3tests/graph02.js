@@ -41,8 +41,8 @@ for (var i = 0; i < currentLevelData.length; i++) {
     if (tempValue > highest) highest = tempValue;
 }
 
-var colorPallete = createPallete(myLowColor, myMiddleColor, myHighColor, colorPalleteLength);
-
+//var colorPallete = window.utils.createPallete(myLowColor, myMiddleColor, myHighColor, colorPalleteLength);
+var colorPallete = window.utils.createPallete(myLowColor, undefined, myHighColor, colorPalleteLength);
 var colorChooser;
 colorChooser = d3.scale.quantize().domain([lowest, highest]).range(d3.range(colorPalleteLength).map(function (i) { return colorPallete[i].toString(); }));
 
