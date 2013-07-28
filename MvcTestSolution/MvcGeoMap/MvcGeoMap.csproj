@@ -124,7 +124,6 @@
     <Content Include="Content\geoShapesJson\data\Oceania.json" />
     <Content Include="Content\geoShapesJson\data\SAmerica.json" />
     <Content Include="Content\data\continent_level_data.json" />
-    <Content Include="Build\project.build" />
     <None Include="Content\geoShapesJson\us.json" />
     <Content Include="Content\data\unemployment.tsv" />
     <None Include="Content\passport_base.cshtml" />
