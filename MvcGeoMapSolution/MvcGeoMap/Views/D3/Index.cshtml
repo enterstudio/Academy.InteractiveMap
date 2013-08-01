@@ -198,6 +198,43 @@ div.tooltip p {
             .attr("d", path);
     }
 
+/////////////////////////////
+var txt = '{"colors":[' +
+'{"range":"10000","color":"yellow" },' +
+'{"range":"20000","color":"green" },' +
+'{"range":"30000","color":"red" }]}';
+
+var obj = eval ("(" + txt + ")");
+
+<table border="1">
+<tr>
+<td bgcolor="#FFFF00"></td>
+<td bgcolor="#00FF00"></td>
+<td bgcolor="#FF0000"></td>
+</tr>
+<tr>
+<td>document.getElementById("range").innerHTML=obj.colors[0].range</td>
+<td>document.getElementById("range").innerHTML=obj.colors[1].range</td>
+<td>document.getElementById("range").innerHTML=obj.colors[2].range</td>
+</tr>
+</table> 
+
+
+//document.getElementById("range").innerHTML=obj.colors[0].range 
+//document.getElementById("color").innerHTML=obj.colors[0].color
+//document.getElementById("range").innerHTML=obj.colors[1].range 
+//document.getElementById("color").innerHTML=obj.colors[1].color 
+//document.getElementById("range").innerHTML=obj.colors[2].range 
+//document.getElementById("color").innerHTML=obj.colors[2].color  
+
+
+//for(var i=0; i<3;i++){
+//document.getElementById("range").innerHTML=obj.colors[i].range
+//document.getElementById("color").innerHTML=obj.colors[i].color
+//}
+
+////////////////////////////////////////////////////////
+
 </script>
 
 -->
