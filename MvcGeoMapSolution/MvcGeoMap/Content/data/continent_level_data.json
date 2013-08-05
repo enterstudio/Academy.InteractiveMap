@@ -1,0 +1,74 @@
+[
+  {
+    "Continent":"Africa",
+    "Impressions":73864,
+    "Unique Impressions":7092,
+    "Clicks":588,
+    "Unique Clicks":370,
+    "CTR (%)":0.007960576,
+    "Unique CTR (%)":0.052171461,
+    "Leads":79,
+    "COV (%)":0.134353741,
+    "Sales":127923.61
+  },
+  {
+    "Continent":"Asia",
+    "Impressions":541429,
+    "Unique Impressions":49975,
+    "Clicks":8277,
+    "Unique Clicks":5958,
+    "CTR (%)":0.015287323,
+    "Unique CTR (%)":0.11921961,
+    "Leads":641,
+    "COV (%)":0.077443518,
+    "Sales":1408000.837
+  },
+  {
+    "Continent":"Australia",
+    "Impressions":76490,
+    "Unique Impressions":8738,
+    "Clicks":1394,
+    "Unique Clicks":952,
+    "CTR (%)":0.018224605,
+    "Unique CTR (%)":0.108949416,
+    "Leads":227,
+    "COV (%)":0.162840746,
+    "Sales":337907.09
+  },
+  {
+    "Continent":"Europe",
+    "Impressions":1228668,
+    "Unique Impressions":133961,
+    "Clicks":5377,
+    "Unique Clicks":3205,
+    "CTR (%)":0.004376609,
+    "Unique CTR (%)":0.023926349,
+    "Leads":789,
+    "COV (%)":0.14689255,
+    "Sales":149302.14
+  },
+  {
+    "Continent":"North America",
+    "Impressions":1078949,
+    "Unique Impressions":176399,
+    "Clicks":12420,
+    "Unique Clicks":8907,
+    "CTR (%)":0.011511202,
+    "Unique CTR (%)":0.050493484,
+    "Leads":1141,
+    "COV (%)":0.091867955,
+    "Sales":2499045.74
+  },
+  {
+    "Continent":"South America",
+    "Impressions":64828,
+    "Unique Impressions":7520,
+    "Clicks":647,
+    "Unique Clicks":407,
+    "CTR (%)":0.009980255,
+    "Unique CTR (%)":0.05412234,
+    "Leads":84,
+    "COV (%)":0.129829985,
+    "Sales":117395.79
+  }
+]
