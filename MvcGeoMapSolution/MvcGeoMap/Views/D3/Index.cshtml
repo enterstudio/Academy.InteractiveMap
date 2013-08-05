@@ -1,6 +1,108 @@
 ﻿@{
-    ViewBag.Title = "D3 Index";
+    Layout = null;
 }
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Index</title>
+    <script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
+</head>
+
+<style type="text/css">
+path {
+  stroke: white;
+  stroke-width: 0.25px;
+  fill: grey;
+}
+
+svg
+{
+  margin-left:auto;
+  margin-right:auto;
+}
+</style>
+<body>
+    <div>
+        Hello World and Index page
+    </div>
+    <script type="text/javascript">
+
+        var width = 960,
+        height = 700;
+
+        var projection = d3.geo.mercator()
+
+        var svg = d3.select("body")
+            .append("svg")
+			.attr("width", width)
+			.attr("height", height);
+
+        var path = d3.geo.path()
+            .projection(projection)
+
+        var g = svg.append("g");
+
+        //var coo = results.features[1].coordinates;
+        var coordinates = projection([-73.403686, 44.153102]);
+
+        svg.append("circle")
+                .attr("cx", coordinates[0])
+                .attr("cy", coordinates[1])
+                .attr("r", 5)
+                .style("fill", "red")
+        ;
+
+        svg.append("svg:text")
+            .text("Group 1")
+        .attr("x", coordinates[0])
+        .attr("y", coordinates[1])
+        .style("stroke", "black")
+        .style("stroke-width", 1)
+        .style("font-size", "100%")
+        .style("fill", "orange");
+
+        // load and display the USA map
+        d3.json("Content/data/maps.json", function (data) {
+            g.selectAll("path")
+                .data(data.features)
+                .enter()
+                .append("path")
+                .attr("d", path)
+                .attr("class", "area")
+                .attr("fill", "steelblue");
+
+        });
+
+
+        // zoom and pan
+        var zoom = d3.behavior.zoom()
+            .on("zoom", function () {
+                g.attr("transform", "translate(" +
+                    d3.event.translate.join(",") + ")scale(" + d3.event.scale + ")");
+                g.selectAll("path")
+                    .attr("d", path.projection(projection));
+            });
+
+        svg.call(zoom)
+
+        svg.selectAll("circle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {
+                return projection([d.lon, d.lat])[0];
+            })
+            .attr("cy", function (d) {
+                return projection([d.lon, d.lat])[1];
+            })
+            .attr("r", 5)
+            .style("fill", "yellow")
+            .style("opacity", 0.75);
+
+
+</script>
+=======
 <script src="http://d3js.org/queue.v1.min.js" type="text/javascript"></script>
 <script src="http://d3js.org/topojson.v1.min.js" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/d3tests/colorPallete.js")" type="text/javascript"></script>
@@ -60,25 +162,11 @@ div.tooltip p {
 </div>
 
 <script src="@Url.Content("~/Scripts/d3tests/graph02.js")" type="text/javascript"></script>
-
-<!--
-<script>
+>>>>>>> master
 
 
-        d3.json("/Content/Json/all.json", function (error, all) {
-        svg.append("g")
-            .attr("class", "countries")
-        .selectAll("path")
-            .data(topojson.feature(all, all.objects.admin0))
-            .enter().append("path")
-            .attr("d", path)
-
-      .data(topojson.feature(us, us.objects.counties).features)
-    .enter().append("path")
-      .attr("d", path)
-      .style("fill", function(d) { return fill(path.area(d)); });
-
-
+<<<<<<< HEAD
+=======
         svg.append("path")
             .datum(topojson.feature(all, all.objects.admin0))
             .attr("d", path);
@@ -236,5 +324,7 @@ var obj = eval ("(" + txt + ")");
 ////////////////////////////////////////////////////////
 
 </script>
+>>>>>>> master
 
--->
+</body>
+</html>

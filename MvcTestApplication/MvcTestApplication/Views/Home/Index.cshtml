@@ -1,0 +1,83 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Index</title>
+    <script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
+</head>
+
+<style type="text/css">
+path {
+  stroke: white;
+  stroke-width: 0.25px;
+  fill: grey;
+}
+
+svg
+{
+  margin-left:auto;
+  margin-right:auto;;
+}
+</style>
+<body>
+    <div>
+        Hello World and Index page
+    </div>
+    <script type="text/javascript">
+
+        var width = 960,
+        height = 700;
+
+        var projection = d3.geo.mercator()
+
+        var svg = d3.select("body")
+            .append("svg")
+			.attr("width", width)
+			.attr("height", height);
+
+        var path = d3.geo.path()
+            .projection(projection)
+
+        var g = svg.append("g");
+
+        var tooltip = d3.select("body")
+	    .append("div")
+	    .style("position", "absolute")
+	    .style("z-index", "10")
+	    .style("visibility", "hidden")
+        //.text(d.NAME);
+        .text(d3.csv('Content/testData/geo_data.csv', function (error, data) { d3.keys(data[1]) }));
+
+        // load and display the USA map
+        d3.json("Content/testData/andriui_11000.geojson", function (data) {
+            g.selectAll("path")
+                .data(data.features)
+                .enter()
+                .append("path")
+                .attr("d", path)
+                .attr("class", "area")
+                .attr("fill", "steelblue")
+                .on("mouseover", function () { return tooltip.style("visibility", "visible"); })
+	            .on("mousemove", function () { return tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px"); })
+	            .on("mouseout", function () { return tooltip.style("visibility", "hidden"); });
+        });
+
+       
+
+        // zoom and pan
+        var zoom = d3.behavior.zoom()
+            .on("zoom", function () {
+                g.attr("transform", "translate(" +
+                    d3.event.translate.join(",") + ")scale(" + d3.event.scale + ")");
+                g.selectAll("path")
+                    .attr("d", path.projection(projection));
+            });
+
+        svg.call(zoom)
+
+
+    </script>
+</body>
+</html>
